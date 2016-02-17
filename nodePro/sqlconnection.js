@@ -48,6 +48,11 @@ con.query('UPDATE nodetable SET name = ? WHERE sno = ?',['pooja',2],function(err
 	console.log(' last effected row for updation   '+result.affectedRows);
 });
 
+//query to delete the data from the database
+con.query('DELETE from nodetable where name = ?',['indu'],function(err,result){
+	if(err) throw err;
+	console.log('last effected row for deletion '+result.affectedRows);
+});
 
 //ending the connection
 con.end();
