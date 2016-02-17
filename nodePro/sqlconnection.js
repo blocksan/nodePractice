@@ -77,6 +77,20 @@ con.query('CALL get_selected_name(2)',function(err,res){
 	console.log(' DATA selected from In procedure');
 	//console.log(res);  // return the whole data set in form of json therefor need to get particular value from indexing
 	console.log(res);
-});	
+});
+
+
+//escaping user input for preventing sqlinjection
+var nameSearch='rahul';
+
+nameSearch=mysql.escape(nameSearch);  // mysql.escape is function used preventing malicious queries into sql query
+
+con.query('SELECT * from nodetable where name='+nameSearch,function(err,result){
+	if(err) throw err;
+	console.log(result);
+});
+
+
+
 //ending the connection
 con.end();
