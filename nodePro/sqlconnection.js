@@ -54,5 +54,29 @@ con.query('DELETE from nodetable where name = ?',['indu'],function(err,result){
 	console.log('last effected row for deletion '+result.affectedRows);
 });
 
+
+/*CREATE DEFINER=`root`@`localhost` PROCEDURE `get_all_nametable`() BEGIN SELECT name from nodetable; END
+*/   // created stored procedure to get data from nodejs
+
+con.query('CALL get_all_nametable()',function(err,rows){
+  if (err) throw err;
+
+  console.log('Data received from Db:\n');
+  //console.log(rows);   // it will return all the data in json format along with extra details like updated rows , effected rows
+
+  for (var i = 0; i < rows[0].length; i++) 
+  {
+  	console.log(rows[0][i].name);   // this is used to iterate over the returned result set which is at 0th index location and other details at 1st 
+	};
+});   
+
+//procedure with IN parameter 
+/*CREATE DEFINER=`root`@`localhost` PROCEDURE `get_selected_name`( in employee_id int ) BEGIN SELECT name FROM nodetable where sno = employee_id; END*/
+con.query('CALL get_selected_name(2)',function(err,res){
+	if(err) throw err;
+	console.log(' DATA selected from In procedure');
+	//console.log(res);  // return the whole data set in form of json therefor need to get particular value from indexing
+	console.log(res);
+});	
 //ending the connection
 con.end();
