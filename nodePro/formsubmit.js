@@ -22,10 +22,11 @@ var server=http.createServer(function(req,res){
 
 //function to display form
 function displayForm(res)
-{	
-	fs.readFile('nodePro/index.html',function(err,data){
+{	//console.log(res);
+	fs.readFile('index.html',function(err,data){
 		res.writeHead(200,
-			{'Content-Type':'text/html',
+			{
+			'Content-Type':'text/html',
 			'Content-Length':data.length
 			});
 		res.write(data);
@@ -46,16 +47,16 @@ function processForm(req,res)
 				insertFun:insertIntoData(fields)
 			}));
 			
-			
 		})
 }
 function insertIntoData(fields){
-var query={sno:'',name:fields.name};
+var query={sno:'',name:fields.nameField};
 con.query('INSERT INTO nodetable SET ?',query,function(err,res)
 {
 	if(err) throw err;
 	console.log('last effected rows for insertion  '+res.affectedRows);  // used to show the last affected row
 });
+return true;
 }
 
 
