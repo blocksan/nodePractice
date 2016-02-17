@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<form>
+		<label>Name:  </label><input type="text" value="" placeholder="type_name" name="nameField">
+		<label>Sex:  </label><input type="text" value="" placeholder="type_sex" name="sex">
+		<input type="submit" value="submit"></input>
+	</form>
+</body>
+</html>
