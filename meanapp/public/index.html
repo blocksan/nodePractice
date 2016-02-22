@@ -19,13 +19,22 @@
 					<th>Name</th>
 					<th>Email</th>
 					<th>Number</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="details in person" >
-					<td>{{details.name}}</td>
-					<td>{{details.email}}</td>
-					<td>{{details.number}}</td>
+				<tr>
+					<td><input class="form-control" ng-model="contact.name"></td>
+					<td><input class="form-control" ng-model="contact.email"></td>
+					<td><input class="form-control" ng-model="contact.number"></td>
+					<td><button class="btn btn-primary" ng-click="addContact()">Add Contact</button> </td>
+				</tr>
+				<tr ng-repeat="contact in person" >
+					<td>{{contact.name}}</td>
+					<td>{{contact.email}}</td>
+					<td>{{contact.number}}</td>
+					<td><button class="btn btn-danger" ng-click="removeMe(contact._id)">remove</button></td>
+					<td><button class="btn btn-success" ng-click="editMe(contact._id)">edit</button></td>
 				</tr>
 			</tbody>
 		</table>

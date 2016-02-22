@@ -1,10 +1,14 @@
 var express=require('express');
 var app=express();
 var mongojs=require('mongojs');
-var db=mongojs('contactlist',['contactlist']);
-app.use(express.static(__dirname+"/public"));  //for giving the common path for html,css static pages from express module
+var bodyparser=require('body-parser');
 
-		console.log(__dirname);
+var db=mongojs('contactlist',['contactlist']);
+
+app.use(express.static(__dirname+"/public"));  //for giving the common path for html,css static pages from express module
+app.use(bodyparser.json());                    //for parsing the JSON body of input boxes from the client side
+	
+	//	console.log(__dirname);					//for printing the current directory path 
 
 		app.get('/contactlist',function(err,res){   //receiving request from the client side using angular
 		console.log("request received from the client"); //consoling the request just to check
@@ -15,7 +19,6 @@ app.use(express.static(__dirname+"/public"));  //for giving the common path for 
 			res.json(docs);
 
 		});
-
 
 		/*person= [{
 		               name: "sandeep",
@@ -31,11 +34,24 @@ app.use(express.static(__dirname+"/public"));  //for giving the common path for 
 		//var contactlist=person;    //storing person array in another variable
 		//res.json(contactlist);		// converting contactlist array into json array type data so that it can be readable by the angular controller
 
-});
+		});
 
- /*app.get('/',function(req,res){
- 	res.send("from meanapp server");
- });*/    //just use for rerouting from url using express module
+		app.post('/contactlist',function(req,res){   			 //app.post method to use the post data from the angular client side
+		//	console.log(req.body);              				//req.body is the data received from the client in JSON format and to parse its body we use bodyParser module
+			db.contactlist.insert(req.body,function(err,doc){   //insert function for mongodb
+				res.json(doc);  
+			});
+		});
+		app.delete('/contactlist/:id',function(req,res){
+			var id = req.params.id;
+			db.contactlist.remove({_id:mongojs.ObjectId(id)},function(err,doc){
+				res.json(doc);
+			});
+		});
+
+		 /*app.get('/',function(req,res){
+		 	res.send("from meanapp server");
+		 });*/    //just use for rerouting from url using express module
 
  app.listen(3000);
  console.log("server runnning meanapp");
