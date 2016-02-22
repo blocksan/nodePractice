@@ -5,10 +5,10 @@ var bodyparser=require('body-parser');
 
 var db=mongojs('contactlist',['contactlist']);
 
-app.use(express.static(__dirname+"/public"));     //for giving the common path for html,css static pages from express module
+app.use(express.static(__dirname+"/"));     //for giving the common path for html,css static pages from express module
 app.use(bodyparser.json());                       //for parsing the JSON body of input boxes from the client side
 	
-	//	console.log(__dirname);					 //for printing the current directory path 
+		console.log(__dirname);					 //for printing the current directory path 
 
 app.get('/contactlist',function(err,res){        //receiving request from the client side using angular
 
@@ -53,13 +53,38 @@ db.contactlist.find(function(errcon,docs){       //docs is the data sent from th
 			});
 		});
 
-		app.update('/contactlist/:id',function(req,res){
+		/*app.update('/contactlist/:id',function(req,res){
 			var id=req.params.id;
-		});
+		});*/
 
-		 /*app.get('/',function(req,res){
-		 	res.send("from meanapp server");
-		 });*/    //just use for rerouting from url using express module
+		 app.get('/contactlist/:id',function(req,res){
+		 	var id = req.params.id;								//id is get from the URL and parsed as params.id 
+			db.contactlist.findOne({_id:mongojs.ObjectId(id)},function(err,doc){
+				res.json(doc);
+			});
+		 });    //just use for rerouting from url using express module
 
+		//update function where id is getting from the client and sending back the resultant result
+		 app.put('/contactlist/:id',function(req,res){
+		 	var id=req.params.id;
+		 	db.contactlist.findAndModify(
+		 		{
+		 		query:
+		 			{
+		 				_id:mongojs.ObjectId(id)
+		 			},
+		 		update:
+		 			{
+		 				$set: {
+		 						name:req.body.name,email:req.body.email,number:req.body.number
+		 						}
+		 			},
+		 		new:true
+		 		},
+		 		function(err,doc)
+		 		{
+		 			res.json(doc);
+		 		});
+		 });
  app.listen(3000);
  console.log("server runnning meanapp");

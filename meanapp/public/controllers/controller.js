@@ -35,12 +35,21 @@ var app=angular.module('app',[]);
 	//editcontact function
 		$scope.editMe=function(id){
 			console.log(id);
-			/*$http.post('/contactlist',id).success(function(response)
-			{  														 //using http.post module to post data to the node server
-				/*console.log(response);*/  						//viewing the newly inserted result
-				/*refresh();
-			})*/
+			$http.get('/contactlist/'+id).success(function(response)
+			{  								
+				$scope.contact=response;							//for updating the input box with selected ID data
+			})
 		};
+	//update function
+		$scope.updateContact=function(){
+			$http.put('/contactlist/'+$scope.contact._id,$scope.contact).success(function(response){
+				refresh();
+			});
+		}
+	//clear input boxes
+		$scope.clearInput=function(){
+			$scope.contact="";
+		}
 		
 });   																//end of controller function
 	   
