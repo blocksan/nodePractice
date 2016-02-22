@@ -5,7 +5,7 @@ var app=express();
 
 
 app.get('/',function(req,res){    //requesting to the root directory of the project
-res.send('hello world');
+res.send('hello express');
 });
 app.listen(3000,function(err,res){
 	console.log('listening on port 3000 with express');
