@@ -1,0 +1,39 @@
+<html ng-app="myWeatherApp">
+<head>
+	<title>Weather App</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	<style type="text/css">
+	ul li{
+		list-style-type: none;
+	}
+	</style>
+</head>
+<body>
+
+<div class="container" ng-controller="weatherDetailController">	
+	<h2>{{app_name}}</h2>
+	<hr>
+	<ul>
+		<li>
+			<table class="table table-bordered">
+				<thead>
+					<th>Name</th><th>Data</th>
+				</thead>
+				<tbody>
+					<td></td><td></td>
+				</tbody>
+			</table>
+		</li>
+	</ul>
+</div>
+
+	<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="node_modules/bootstrap/dist/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+	<script type="text/javascript" src="public/controller/controller.js"></script>
+</body>
+</html>
